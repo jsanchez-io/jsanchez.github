@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a1020">
+  <meta name="description" content="Jean Lasso-Sanchez's IT portfolio: technical troubleshooting, healthcare IT, systems administration, automation, and IT risk and compliance.">
+  <title>Jean Lasso-Sanchez | IT Portfolio</title>
+  <style>
+    :root {
+      --bg: #080d19;
+      --surface: #10182a;
+      --surface-2: #151f34;
+      --text: #edf3ff;
+      --muted: #a1aec5;
+      --line: rgba(170, 192, 229, .16);
+      --blue: #69a7ff;
+      --cyan: #68e0dc;
+      --glow: rgba(69, 133, 255, .19);
+      --radius: 20px;
+      --max: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0; background:
+        radial-gradient(ellipse at 80% 0%, rgba(37, 88, 173, .18), transparent 36rem),
+        radial-gradient(ellipse at 0% 45%, rgba(28, 125, 132, .08), transparent 32rem),
+        var(--bg);
+      color: var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .nav-wrap { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: rgba(8,13,25,.82); backdrop-filter: blur(16px); }
+    nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 750; letter-spacing: -.03em; white-space: nowrap; }
+    .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 11px; color: #06101c; background: linear-gradient(135deg, var(--cyan), var(--blue)); font-weight: 900; }
+    .nav-links { display: flex; align-items: center; gap: 26px; color: var(--muted); font-size: .91rem; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+    .nav-links .nav-cta { color: var(--text); border: 1px solid var(--line); padding: 9px 14px; border-radius: 999px; }
+    .menu-toggle { display: none; color: var(--text); border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 8px 11px; }
+    .hero { padding: 92px 0 76px; display: grid; grid-template-columns: 1.08fr .92fr; gap: 54px; align-items: center; min-height: 600px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--cyan); font-size: .78rem; letter-spacing: .13em; text-transform: uppercase; font-weight: 800; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 14px var(--cyan); }
+    h1 { font-size: clamp(2.7rem, 5.3vw, 4.8rem); line-height: 1.04; letter-spacing: -.065em; margin: 20px 0; max-width: 700px; }
+    .gradient-text { background: linear-gradient(100deg, #f2f6ff 10%, #8bb9ff 54%, #71e0dc 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-copy { color: var(--muted); font-size: 1.08rem; max-width: 620px; }
+    .hero-copy strong { color: var(--text); font-weight: 650; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 9px; border-radius: 12px; padding: 12px 17px; font-size: .93rem; font-weight: 750; border: 1px solid var(--line); transition: transform .2s ease, border-color .2s ease, background .2s ease; cursor: pointer; }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(105,167,255,.6); }
+    .btn-primary { background: linear-gradient(120deg, #78b4ff, #69e0dc); color: #07111d; border: 0; }
+    .btn-secondary { background: rgba(255,255,255,.025); color: var(--text); }
+    .hero-note { display: flex; gap: 12px; align-items: center; margin-top: 25px; color: var(--muted); font-size: .83rem; }
+    .hero-note span { width: 1px; height: 17px; background: var(--line); }
+    .terminal {
+      position: relative; overflow: hidden; padding: 0; border: 1px solid rgba(139,178,236,.24); border-radius: 22px;
+      background: linear-gradient(145deg, rgba(21,32,54,.97), rgba(9,15,29,.97)); box-shadow: 0 30px 100px rgba(0,0,0,.35), 0 0 65px var(--glow);
+      transform: perspective(900px) rotateY(-3deg) rotateX(2deg);
+    }
+    .terminal-top { display: flex; align-items: center; justify-content: space-between; padding: 15px 18px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.025); color: var(--muted); font: .76rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .lights { display: flex; gap: 6px; }
+    .lights i { display: block; width: 8px; height: 8px; border-radius: 50%; background: #ff7474; }
+    .lights i:nth-child(2) { background: #f7c96b; } .lights i:nth-child(3) { background: #64d6a0; }
+    .terminal-body { padding: 26px 25px 24px; font: .87rem/1.9 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .code-line { display: block; white-space: nowrap; }
+    .prompt { color: var(--cyan); } .code-key { color: #8bb9ff; } .code-string { color: #b8e9bd; } .code-comment { color: #7787a2; }
+    .terminal-divider { border: 0; border-top: 1px solid var(--line); margin: 20px 0; }
+    .mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .mini-stat { padding: 13px 10px; border-radius: 12px; background: rgba(255,255,255,.035); border: 1px solid var(--line); }
+    .mini-stat strong { display: block; font-size: 1.23rem; letter-spacing: -.04em; }
+    .mini-stat span { display: block; color: var(--muted); font-size: .7rem; line-height: 1.4; margin-top: 3px; }
+    section { padding: 76px 0; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 25px; margin-bottom: 30px; }
+    .section-kicker { color: var(--cyan); text-transform: uppercase; letter-spacing: .14em; font-size: .75rem; font-weight: 800; }
+    h2 { margin: 8px 0 0; font-size: clamp(1.9rem, 3.2vw, 2.75rem); line-height: 1.12; letter-spacing: -.05em; }
+    .section-intro { color: var(--muted); max-width: 510px; margin: 0; font-size: .96rem; }
+    .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .focus-card { border: 1px solid var(--line); background: linear-gradient(150deg, rgba(19,29,48,.92), rgba(12,19,33,.92)); padding: 24px; border-radius: var(--radius); transition: transform .22s ease, border-color .22s ease; }
+    .focus-card:hover { transform: translateY(-4px); border-color: rgba(105,167,255,.42); }
+    .icon-box { width: 43px; height: 43px; display: grid; place-items: center; border-radius: 13px; background: rgba(105,167,255,.11); border: 1px solid rgba(105,167,255,.19); color: var(--cyan); margin-bottom: 18px; }
+    .icon-box svg { width: 21px; height: 21px; }
+    .focus-card h3, .project-card h3 { margin: 0 0 8px; font-size: 1.12rem; letter-spacing: -.025em; }
+    .focus-card p, .project-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 17px; }
+    .tag { display: inline-flex; padding: 5px 9px; border-radius: 999px; background: rgba(129,164,219,.08); border: 1px solid var(--line); color: #c5d4ed; font-size: .72rem; }
+
+    .systems-section { padding-top: 34px; padding-bottom: 54px; overflow: hidden; }
+    .systems-heading { text-align: center; margin-bottom: 25px; }
+    .systems-heading .section-intro { max-width: 650px; margin: 13px auto 0; }
+    .logo-marquee {
+      overflow: hidden; position: relative; width: 100%;
+      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    }
+    .logo-track {
+      display: flex; align-items: center; gap: 18px; width: max-content;
+      animation: logo-drift-right 42s linear infinite;
+    }
+    .logo-marquee:hover .logo-track { animation-play-state: paused; }
+    .system-logo {
+      min-width: 155px; height: 76px; padding: 13px 18px; display: flex;
+      align-items: center; justify-content: center; gap: 10px;
+      border: 1px solid var(--line); border-radius: 15px;
+      background: linear-gradient(145deg, rgba(21,31,52,.92), rgba(12,19,33,.9));
+      color: #dce8fa; font-weight: 750; letter-spacing: -.025em;
+      white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,.1);
+    }
+    .system-mark {
+      width: 29px; height: 29px; display: grid; place-items: center; flex: 0 0 29px;
+      border-radius: 8px; background: rgba(105,167,255,.12);
+      color: var(--cyan); border: 1px solid rgba(105,167,255,.22);
+      font-size: .69rem; font-weight: 900; letter-spacing: -.04em;
+    }
+    .systems-footnote { margin: 17px 0 0; text-align: center; color: var(--muted); font-size: .78rem; }
+    @keyframes logo-drift-right {
+      from { transform: translateX(-50%); }
+      to { transform: translateX(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .logo-track { animation: none; }
+      .logo-marquee { overflow-x: auto; mask-image: none; -webkit-mask-image: none; }
+    }
+
+    .projects-section { background: linear-gradient(180deg, transparent, rgba(15,24,42,.5), transparent); }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+    .filter-btn { border: 1px solid var(--line); background: rgba(255,255,255,.025); color: var(--muted); padding: 8px 13px; border-radius: 999px; cursor: pointer; font-size: .82rem; }
+    .filter-btn[aria-pressed="true"] { color: #07111d; background: var(--cyan); border-color: var(--cyan); font-weight: 800; }
+    .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
+    .project-card { overflow: hidden; border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); transition: transform .22s ease, border-color .22s ease; }
+    .project-card:hover { transform: translateY(-4px); border-color: rgba(105,167,255,.45); }
+    .project-card[hidden] { display: none; }
+    .project-art { min-height: 168px; padding: 22px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: #111e34; }
+    .project-art::before, .project-art::after { content: ""; position: absolute; border: 1px solid rgba(134,184,255,.24); border-radius: 50%; width: 220px; height: 220px; }
+    .project-art::after { width: 150px; height: 150px; }
+    .art-blue { background: radial-gradient(circle at 50% 45%, #244e81, #111b31 70%); }
+    .art-teal { background: radial-gradient(circle at 50% 45%, #1a6268, #111b31 70%); }
+    .art-violet { background: radial-gradient(circle at 50% 45%, #4b3b83, #111b31 70%); }
+    .art-symbol { z-index: 1; width: 62px; height: 62px; display: grid; place-items: center; border-radius: 18px; border: 1px solid rgba(193,220,255,.4); background: rgba(7,15,30,.5); color: #c7e5ff; box-shadow: 0 0 35px rgba(105,167,255,.15); }
+    .art-symbol svg { width: 30px; height: 30px; }
+    .project-content { padding: 21px; }
+    .project-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; color: var(--cyan); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; }
+    .status-label { color: #e7c47a; background: rgba(231,196,122,.09); border: 1px solid rgba(231,196,122,.2); border-radius: 999px; padding: 4px 7px; letter-spacing: 0; text-transform: none; font-weight: 650; }
+    .project-link { display: inline-flex; margin-top: 18px; gap: 7px; align-items: center; color: var(--text); font-size: .83rem; font-weight: 750; }
+    .project-link:hover { color: var(--cyan); }
+    .project-note { color: var(--muted); font-size: .82rem; margin-top: 18px; }
+    .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 45px; align-items: start; }
+    .about-panel { border: 1px solid var(--line); background: linear-gradient(145deg, rgba(20,32,53,.85), rgba(11,18,31,.8)); border-radius: var(--radius); padding: 26px; }
+    .about-panel h3 { margin: 0 0 12px; }
+    .about-panel p { margin: 0; color: var(--muted); }
+    .about-copy p { color: var(--muted); margin: 0 0 17px; }
+    .about-copy strong { color: var(--text); }
+    .principles { display: grid; gap: 11px; margin-top: 20px; }
+    .principle { display: flex; gap: 11px; align-items: flex-start; color: #d5e1f4; font-size: .9rem; }
+    .check { color: var(--cyan); font-weight: 900; }
+    .contact-panel { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: clamp(26px, 5vw, 48px); border: 1px solid rgba(105,167,255,.27); border-radius: 26px; background: radial-gradient(ellipse at 90% 0%, rgba(64,124,213,.2), transparent 45%), var(--surface); }
+    .contact-panel p { color: var(--muted); max-width: 570px; margin: 12px 0 0; }
+    footer { border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font-size: .8rem; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+    .footer-links { display: flex; gap: 17px; }
+    .footer-links a:hover { color: var(--text); }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    :focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr; gap: 38px; padding-top: 70px; }
+      .terminal { max-width: 650px; transform: none; }
+      .focus-grid, .project-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; gap: 24px; }
+      .section-heading { align-items: start; flex-direction: column; }
+    }
+    @media (max-width: 620px) {
+      .container { width: min(var(--max), calc(100% - 28px)); }
+      nav { min-height: 66px; }
+      .brand { font-size: .9rem; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; top: 65px; left: 14px; right: 14px; padding: 16px; border: 1px solid var(--line); border-radius: 15px; background: #0e1728; flex-direction: column; align-items: stretch; gap: 5px; }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 10px; }
+      .nav-links .nav-cta { text-align: center; margin-top: 4px; }
+      .hero { min-height: auto; padding: 62px 0 54px; }
+      h1 { font-size: clamp(2.6rem, 12vw, 4rem); }
+      section { padding: 57px 0; }
+      .focus-grid, .project-grid { grid-template-columns: 1fr; }
+      .terminal-body { padding: 19px 15px; font-size: .75rem; }
+      .mini-stats { gap: 6px; }
+      .mini-stat { padding: 10px 7px; }
+      .mini-stat strong { font-size: 1.05rem; }
+      .contact-panel { align-items: flex-start; flex-direction: column; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <nav class="container" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Jean Lasso-Sanchez home">
+        <span class="brand-mark">JLS</span><span>Jean Lasso-Sanchez<span style="color:var(--cyan)">.</span></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#focus">What I Do</a>
+        <a href="#systems">Systems</a>
+        <a href="#projects">Portfolio</a>
+        <a href="#about">About</a>
+        <a class="nav-cta" href="#contact">Get in touch ↗</a>
+      </div>
+    </nav>
+  </div>
+
+  <main>
+    <header class="container hero" id="home">
+      <div class="reveal">
+        <div class="eyebrow"><span class="status-dot"></span> Technical Support · IT Operations · Security, Risk & Compliance</div>
+        <h1>Want to know if I'm qualified?<br><span class="gradient-text">You let me know.</span></h1>
+        <p class="hero-copy">I'm Jean, an IT professional with more than 5 years connecting <strong>hands-on troubleshooting, enterprise systems & applications, automation, and security compliance</strong> to solve problems that matter to users and businesses.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#projects">Explore my work <span aria-hidden="true">↘</span></a>
+          <a class="btn btn-secondary" href="#contact">Let's connect <span aria-hidden="true">↗</span></a>
+        </div>
+        <!--<div class="hero-note"><span>Hablo Espanol tambien</span></div>--!>
+      </div>
+
+      <div class="terminal reveal" aria-label="Decorative terminal-style summary">
+        <div class="terminal-top"><span class="lights"><i></i><i></i><i></i></span><span>jean@portfolio: ~/overview</span><span>● online</span></div>
+        <div class="terminal-body">
+          <span class="code-line"><span class="prompt">$</span> who.am.i</span>
+          <span class="code-line"><span class="code-string">IT professional & Problem Solver</span></span>
+          <br>
+          <span class="code-line"><span class="prompt">$</span> cat focus.json</span>
+          <span class="code-line">{</span>
+          <span class="code-line">&nbsp;&nbsp;<span class="code-key">"Systems"</span>: <span class="code-string">"support & administration"</span>,</span>
+          <span class="code-line">&nbsp;&nbsp;<span class="code-key">"Troubleshooting"</span>: <span class="code-string">"find the root cause"</span>,</span>
+          <span class="code-line">&nbsp;&nbsp;<span class="code-key">"Security"</span>: <span class="code-string">"risk & compliance, Audit"</span>,</span>
+          <span class="code-line">&nbsp;&nbsp;<span class="code-key">"Mindset"</span>: <span class="code-string">"learn, document, improve"</span></span>
+          <span class="code-line">}</span>
+          <hr class="terminal-divider">
+          <div class="mini-stats">
+            <div class="mini-stat"><strong>5+</strong><span>Years in IT experience</span></div>
+            <div class="mini-stat"><strong>50+</strong><span>Healthcare & Enterprise clients supported</span></div>
+            <div class="mini-stat"><strong>375+</strong><span>Escalated issues handled</span></div>
+          </div>
+          <p class="code-comment" style="margin:17px 0 0;font-size:.75rem">// Curious by nature. Practical by design.</p>
+        </div>
+      </div>
+    </header>
+
+    <section id="focus">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div><div class="section-kicker">Core strengths</div><h2>Where technology meets problem solving.</h2></div>
+      <!--  <p class="section-intro">A mix of practical technical experience and risk awareness, built around making systems more reliable, secure, and easier to use.</p> --!>
+        </div>
+        <div class="focus-grid">
+          <article class="focus-card reveal">
+            <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4M7 9h4M7 12h8"/></svg></div>
+            <h3>IT Operations & Support</h3>
+            <p>Investigating complex application, access, configuration, and connectivity issues across enterprise environments.</p>
+            <div class="tags"><span class="tag">Incident resolution</span><span class="tag">Systems support</span><span class="tag">ServiceNow</span></div>
+          </article>
+          <article class="focus-card reveal">
+            <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3 20 6v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-3Z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></div>
+            <h3>IT Risk & Compliance</h3>
+            <p>Connecting technical controls to business requirements through ITGC testing, audit support, and security frameworks.</p>
+            <div class="tags"><span class="tag">ITGC</span><span class="tag">SOX 404</span><span class="tag">SOC 2</span></div>
+          </article>
+          <article class="focus-card reveal">
+            <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></div>
+            <h3>Scripting & Automation</h3>
+            <p>Building skills in scripting, query-based investigation, and AI-assisted workflows to reduce repetitive work.</p>
+            <div class="tags"><span class="tag">SQL</span><span class="tag">Python</span><span class="tag">AI tools</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="systems-section" id="systems" aria-labelledby="systems-title">
+      <div class="container">
+        <div class="systems-heading reveal">
+          <div class="section-kicker">Tools & platforms</div>
+          <h2 id="systems-title">Systems I've worked with.</h2>
+          <p class="section-intro">A selection of platforms and technologies I've used across technical support, enterprise healthcare, IT operations, analytics, and compliance.</p>
+        </div>
+      </div>
+      <div class="logo-marquee" aria-label="Scrolling list of systems and technologies">
+        <div class="logo-track">
+          <div class="system-logo"><span class="system-mark">M365</span>Microsoft 365</div>
+          <div class="system-logo"><span class="system-mark">AZ</span>Microsoft Azure</div>
+          <div class="system-logo"><span class="system-mark">SN</span>ServiceNow</div>
+          <div class="system-logo"><span class="system-mark">EP</span>Epic</div>
+          <div class="system-logo"><span class="system-mark">CTX</span>Citrix</div>
+          <div class="system-logo"><span class="system-mark">SQL</span>SQL</div>
+          <div class="system-logo"><span class="system-mark">Py</span>Python</div>
+          <div class="system-logo"><span class="system-mark">PBI</span>Power BI</div>
+          <div class="system-logo"><span class="system-mark">SL</span>Sumo Logic</div>
+          <div class="system-logo"><span class="system-mark">JR</span>Jira</div>
+          <div class="system-logo"><span class="system-mark">OK</span>Okta / SSO</div>
+          <div class="system-logo"><span class="system-mark">WK</span>Workiva</div>
+          <div class="system-logo"><span class="system-mark">AI</span>Claude & ChatGPT</div>
+          <!-- Duplicate set makes the marquee loop smoothly. -->
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">M365</span>Microsoft 365</div>
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">AZ</span>Microsoft Azure</div>
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">SN</span>ServiceNow</div>
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">EP</span>Epic</div>
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">CTX</span>Citrix</div>
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">SQL</span>SQL</div>
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">Py</span>Python</div>
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">PBI</span>Power BI</div>
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">SL</span>Sumo Logic</div>
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">JR</span>Jira</div>
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">OK</span>Okta / SSO</div>
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">WK</span>Workiva</div>
+          <div class="system-logo" aria-hidden="true"><span class="system-mark">AI</span>Claude & ChatGPT</div>
+        </div>
+      </div>
+      <p class="systems-footnote">The list highlights selected tools I've used, not an exhaustive inventory.</p>
+    </section>
+
+    <section class="projects-section" id="projects">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div><div class="section-kicker">Selected work</div><h2>Projects, labs & technical writeups.</h2></div>
+          <p class="section-intro">A growing collection of practical walkthroughs that show how I <strong>investigate, document,</strong> and <strong>solve</strong> technical problems.</p>
+        </div>
+        <div class="filters reveal" role="group" aria-label="Filter portfolio projects">
+          <button class="filter-btn" data-filter="all" aria-pressed="true">All work</button>
+          <button class="filter-btn" data-filter="troubleshooting" aria-pressed="false">Troubleshooting</button>
+          <button class="filter-btn" data-filter="lab" aria-pressed="false">Home labs</button>
+          <button class="filter-btn" data-filter="automation" aria-pressed="false">Scripting & automation</button>
+          <button class="filter-btn" data-filter="security" aria-pressed="false">Security & GRC</button>
+        </div>
+        <div class="project-grid" id="projectGrid">
+          <article class="project-card reveal" data-category="troubleshooting">
+            <div class="project-art art-blue"><div class="art-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5M8 11h5M10.5 8.5v5"/></svg></div></div>
+            <div class="project-content">
+              <div class="project-meta"><span>Deep dive</span><span class="status-label">Planned</span></div>
+              <h3>Root Cause Troubleshooting</h3>
+              <p>A structured walkthrough showing symptoms, investigation steps, logs, findings, resolution, and lessons learned.</p>
+              <div class="tags"><span class="tag">Logs</span><span class="tag">Diagnostics</span><span class="tag">Documentation</span></div>
+              <a class="project-link" href="#contact" aria-label="Ask about the troubleshooting case study">Case study coming soon <span>↗</span></a>
+            </div>
+          </article>
+          <article class="project-card reveal" data-category="lab security">
+            <div class="project-art art-teal"><div class="art-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01M11 7h6M11 17h6"/></svg></div></div>
+            <div class="project-content">
+              <div class="project-meta"><span>Lab build</span><span class="status-label">Planned</span></div>
+              <h3>Home Lab & Systems Administration</h3>
+              <p>A documented lab environment covering setup decisions, configuration, access controls, testing, and troubleshooting.</p>
+              <div class="tags"><span class="tag">Virtualization</span><span class="tag">Networking</span><span class="tag">Identity</span></div>
+              <a class="project-link" href="#contact" aria-label="Ask about the home lab project">Lab walkthrough coming soon <span>↗</span></a>
+            </div>
+          </article>
+          <article class="project-card reveal" data-category="automation">
+            <div class="project-art art-violet"><div class="art-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 5h12M8 12h12M8 19h12M3 5h.01M3 12h.01M3 19h.01"/><path d="m14 9 3 3-3 3"/></svg></div></div>
+            <div class="project-content">
+              <div class="project-meta"><span>Build & improve</span><span class="status-label">Planned</span></div>
+              <h3>Practical Scripting & Automation</h3>
+              <p>Small, useful scripts with clear explanations of the problem, logic, testing, limitations, and potential improvements.</p>
+              <div class="tags"><span class="tag">Python</span><span class="tag">PowerShell</span><span class="tag">SQL</span></div>
+              <a class="project-link" href="#contact" aria-label="Ask about scripting projects">Code examples coming soon <span>↗</span></a>
+            </div>
+          </article>
+        </div>
+        <!-- <p class="project-note reveal">These are starter portfolio slots, not claims of completed projects. Replace each with your own repository link and evidence as you build it.</p> --!>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about-grid">
+        <div class="reveal">
+          <div class="section-kicker">A little about me</div>
+          <h2>Technical thinking.<br>Business awareness.<br>Client-focused.</h2>
+        </div>
+        <div class="about-copy reveal">
+          <p>My background spans application technology support and IT governance. That combination taught me to look beyond the immediate error: understand the impact, find the root cause, communicate clearly, and help prevent the issue from recurring.</p>
+          <p>This portfolio is where I document what I know, what I build, and what I'm learning next. Each writeup will focus on the <strong>problem, approach, evidence, result, and takeaways</strong> so you, a recruiter, or technical teammate can follow the reasoning.</p>
+          <div class="principles">
+            <div class="principle"><span class="check">✓</span><span>Clear documentation instead of unexplained screenshots or code dumps.</span></div>
+            <div class="principle"><span class="check">✓</span><span>Practical projects that demonstrate real skills and honest learning.</span></div>
+            <div class="principle"><span class="check">✓</span><span>Security conscious examples with private data and credentials kept out of public repositories.</span></div>
+			<div class="principle"><span class="check">✓</span><span><strong>También hablo español para cualquier necesidad.</strong></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-panel reveal">
+          <div>
+            <div class="section-kicker">Let's connect</div>
+            <h2>Hiring a potential candidate?</h2>
+            <p>I'm interested in opportunities where technical problem solving, reliable systems, and continuous improvement make a difference.</p>
+          </div>
+          <div class="actions" style="margin-top:0">
+            <a class="btn btn-primary" href="https://www.linkedin.com/in/jean-lasso-sanchez-3255ba190" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+			<a class="btn btn-secondary" href="Jean-Lasso-Sanchez-Resume.pdf" download aria-label="Download Jean's as a PDF">Download resume (PDF) ↓</a>
+            <a class="btn btn-primary" href="mailto:j.sanchez609@hotmail.com?subject=Portfolio%20Inquiry" aria-label="Email Jean Lasso-Sanchez">Email me ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Jean Lasso-Sanchez · Built to succeed.</span>
+      <div class="footer-links"><a href="#home">Back to top ↑</a><a href="#projects">Projects</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Filter portfolio cards by category
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+        filterButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+        projectCards.forEach(card => {
+          const categories = card.dataset.category.split(' ');
+          card.hidden = filter !== 'all' && !categories.includes(filter);
+        });
+      });
+    });
+
+    // Subtle scroll reveal, with a fallback for browsers without IntersectionObserver
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add('visible'));
+    }
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
