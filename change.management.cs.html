@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a1020">
+  <meta name="description" content="Portfolio case study by Jean Lasso-Sanchez detailing technical execution, problem-solving, and governance.">
+  <title>IT Operations & Version Control | Jean Lasso-Sanchez</title>
+  <style>
+    :root {
+      --bg: #080d19;
+      --surface: #10182a;
+      --surface-2: #151f34;
+      --text: #edf3ff;
+      --muted: #a1aec5;
+      --line: rgba(170, 192, 229, .16);
+      --blue: #69a7ff;
+      --cyan: #68e0dc;
+      --glow: rgba(69, 133, 255, .19);
+      --radius: 20px;
+      --max: 900px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0; background:
+        radial-gradient(ellipse at 80% 0%, rgba(37, 88, 173, .18), transparent 36rem),
+        radial-gradient(ellipse at 0% 45%, rgba(28, 125, 132, .08), transparent 32rem),
+        var(--bg);
+      color: var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button { font: inherit; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .nav-wrap { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: rgba(8,13,25,.82); backdrop-filter: blur(16px); }
+    nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 750; letter-spacing: -.03em; white-space: nowrap; color: var(--text); }
+    .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 11px; color: #06101c; background: linear-gradient(135deg, var(--cyan), var(--blue)); font-weight: 900; }
+    .back-link { color: var(--muted); font-size: .9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .back-link:hover { color: var(--text); text-decoration: none; }
+    
+    /* Buttons */
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 9px; border-radius: 12px; padding: 10px 18px; font-size: .9rem; font-weight: 750; border: 1px solid var(--line); transition: transform .2s ease, border-color .2s ease; cursor: pointer; margin-top: 18px; }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(105,167,255,.6); text-decoration: none; }
+    .btn-primary { background: linear-gradient(120deg, #78b4ff, #69e0dc); color: #07111d; border: 0; }
+    
+    /* Case Study Header */
+    .case-header { padding: 60px 0 40px; border-bottom: 1px solid var(--line); }
+    .section-kicker { color: var(--cyan); text-transform: uppercase; letter-spacing: .14em; font-size: .75rem; font-weight: 800; margin-bottom: 8px; }
+    h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.1; letter-spacing: -.04em; margin: 0 0 16px; }
+    .case-intro { color: var(--muted); font-size: 1.1rem; max-width: 750px; margin: 0; }
+    
+    /* Case Content Layout */
+    .case-content { padding: 50px 0 90px; }
+    section.case-section { margin-bottom: 50px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; }
+    section.case-section h2 { font-size: 1.5rem; letter-spacing: -.02em; margin-top: 0; margin-bottom: 16px; color: var(--text); display: flex; align-items: center; gap: 10px; }
+    section.case-section h2 span { color: var(--cyan); font-size: 1rem; font-family: monospace; }
+    p, li { color: var(--muted); font-size: .98rem; }
+    strong { color: var(--text); }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 8px; }
+    
+    /* Code block & image styling */
+    pre { background: #060a13; border: 1px solid var(--line); border-radius: 12px; padding: 16px; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; color: #b8e9bd; }
+    .evidence-img { width: 100%; max-width: 100%; border-radius: 12px; border: 1px solid var(--line); margin-top: 14px; display: block; }
+    
+    footer { border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font-size: .8rem; text-align: center; }
+    
+    @media (max-width: 620px) {
+      .container { width: min(var(--max), calc(100% - 24px)); }
+      section.case-section { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-wrap">
+    <nav class="container" aria-label="Case study navigation">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">JLS</span><span>Jean Lasso-Sanchez</span>
+      </a>
+      <a class="back-link" href="index.html#projects">← Back to Portfolio</a>
+    </nav>
+  </div>
+
+  <main class="container">
+    <!-- Header info -->
+    <header class="case-header">
+      <div class="section-kicker">IT Operations & Version Control</div>
+      <h1>Enterprise Git Version Control & Production Asset Deployment</h1>
+      <p class="case-intro">Demonstrated a controlled process for updating a live website. By following standard approval steps and using Git, I safely added an updated resume PDF and refreshed the website link without risking site downtime or errors.</p>
+      
+      <!-- Button linking directly to Pull Request #3 -->
+      <a class="btn btn-primary" href="https://github.com/jsanchez-io/jsanchez.github/pull/3" target="_blank" rel="noreferrer">
+        View GitHub Pull Request #3 ↗
+      </a>
+    </header>
+
+    <div class="case-content">
+      
+      <!-- 1. Business Problem -->
+      <section class="case-section">
+        <h2><span>01</span> Business Problem</h2>
+        <p><strong>Context & Organization:</strong> Fictional Enterprise Web Platform (simulating IT operations for a company's public-facing site).</p>
+        <p><strong>The Core Challenge:</strong> Visitors attempting to download the resume were receiving nothing, as there was no file to download. Editing the website code directly on the live server is risky—a single mistake could break the page for visitors or leave no record of who made the change.</p>
+        <p><strong>Business & Compliance Impact:</strong> Making unverified changes directly to live systems creates security risks, violates IT compliance standards (such as IT General Controls), and leaves no clear audit trail for management.</p>
+      </section>
+
+      <!-- 2. Technical Approach -->
+      <section class="case-section">
+        <h2><span>02</span> Technical Approach & Process</h2>
+        <p><strong>Tools & Systems Used:</strong> Git, GitHub, VS Code, HTML5, Notepad++, and ITIL Change Management principles.</p>
+        <p><strong>Step-by-Step Workflow (Simplified for Stakeholders):</strong></p>
+        <ul>
+          <li><strong>Phase 1 (Request & Risk Assessment):</strong> Submitted formal ticket <strong>CR-001: Add Resume PDF to Portfolio</strong>. Evaluated the change as low-risk because it involved adding a simple file rather than altering major system functionality.</li>
+          <li><strong>Phase 2 (Safe Workspace Creation):</strong> Created a local Git repository and worked on an isolated draft branch (<code>jsanchez-portfolio-index-updates</code>). This ensured the live website remained completely untouched while work was underway.</li>
+          <li><strong>Phase 3 (Implementation & Testing):</strong> Added the new <code>Jean-Lasso-Sanchez-Resume.pdf</code> file and updated the download link on the webpage. Tested the page locally in a web browser to confirm the link worked cleanly across desktop and mobile screens.</li>
+          <li><strong>Phase 4 (Peer Review & Safe Deployment):</strong> Submitted Pull Request #3 for review. Once checked and approved, the 5 commits were merged into the main live site branch, accompanied by an emergency rollback plan if any issues arose.</li>
+        </ul>
+      </section>
+
+      <!-- 3. Evidence & Deliverables -->
+      <section class="case-section">
+        <h2><span>03</span> Evidence & Key Deliverables</h2>
+        <p><strong>Artifact 1: Approved Change Request (CR-001) & Pull Request #3</strong></p>
+        <p>The record below confirms Pull Request #3 was reviewed and merged into <code>main</code> from the isolated <code>jsanchez-portfolio-index-updates</code> branch.</p>
+        
+        <!-- Embedded Screenshot -->
+        <img class="evidence-img" src="images/pull-req.png" alt="GitHub Pull Request #3 CR-001 Screenshot">
+
+        <!-- Summary Code Snippet -->
+        <pre style="margin-top: 16px;"><code># Change Record Audit Summary
+Ticket ID: CR-001
+Title: Add Resume PDF to Portfolio
+Pull Request: jsanchez-io/jsanchez.github#3
+Status: MERGED
+Source Branch: jsanchez-portfolio-index-updates -> Target Branch: main
+Commits Merged: 5
+Files Changed: 2 (Jean-Lasso-Sanchez-Resume.pdf, index.html)</code></pre>
+
+        <p style="margin-top: 16px;"><strong>Artifact 2: Version Control History & Emergency Recovery Plan</strong></p>
+        <p>Every single step is logged with a unique reference code. If a file ever becomes corrupted, the team can restore the previous working version in seconds using the command below:</p>
+        
+        <pre><code># Commands used to save changes with clear notes
+git add Jean-Lasso-Sanchez-Resume.pdf index.html
+git commit -m "[CR-001] Add updated resume PDF and refresh download link"
+git push origin jsanchez-portfolio-index-updates
+
+# Rollback Command (Restores live site instantly if an error occurs)
+git revert &lt;commit-id&gt;
+git push origin main</code></pre>
+      </section>
+
+      <!-- 4. Outcome & Lessons Learned -->
+      <section class="case-section">
+        <h2><span>04</span> Outcome & Key Takeaways</h2>
+        <p><strong>Results Achieved:</strong></p>
+        <ul>
+          <li><strong>100% Traceability & Compliance:</strong> Created a clear audit trail linking the initial business request directly to the completed website change.</li>
+          <li><strong>Zero Disruption:</strong> Updated live files seamlessly without causing layout bugs or website downtime for visitors.</li>
+          <li><strong>Clear Communication:</strong> Translated technical steps into structured updates so non-technical management could easily follow progress.</li>
+        </ul>
+        <p style="margin-top: 16px;"><strong>Takeaways & Next Steps:</strong> Following a proper change management routine—even for routine updates—builds operational stability and trust across technical and business teams. Next, I plan to set up an automated testing tool (CI/CD) to automatically check for broken links prior to approval.</p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span id="year"></span> Jean Lasso-Sanchez · Built to succeed.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
