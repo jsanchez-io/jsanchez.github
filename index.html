@@ -33,60 +33,156 @@
     a { color: inherit; text-decoration: none; }
     button { font: inherit; }
     .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    
+    /* Navigation Styles */
     .nav-wrap { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: rgba(8,13,25,.82); backdrop-filter: blur(16px); }
     nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .brand { display: flex; align-items: center; gap: 11px; font-weight: 750; letter-spacing: -.03em; white-space: nowrap; }
     .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 11px; color: #06101c; background: linear-gradient(135deg, var(--cyan), var(--blue)); font-weight: 900; }
-    .nav-links { display: flex; align-items: center; gap: 26px; color: var(--muted); font-size: .91rem; }
-    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
-    .nav-links .nav-cta { color: var(--text); border: 1px solid var(--line); padding: 9px 14px; border-radius: 999px; }
+    
+    /* Bolding the navigation links */
+    .nav-links { display: flex; align-items: center; gap: 26px; color: var(--text); font-size: .92rem; font-weight: 650; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--cyan); }
+    
+    .nav-links .nav-cta { 
+      color: var(--text); border: 1px solid var(--line); padding: 9px 14px; border-radius: 999px; 
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .nav-links .nav-cta:hover { transform: translateY(-2px); border-color: rgba(105,167,255,.8); background: rgba(105,167,255,.15); color: var(--text); }
+
     .menu-toggle { display: none; color: var(--text); border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 8px 11px; }
+
+    /* Hero Section Styles */
     .hero { padding: 92px 0 76px; display: grid; grid-template-columns: 1.08fr .92fr; gap: 54px; align-items: center; min-height: 600px; }
     .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--cyan); font-size: .78rem; letter-spacing: .13em; text-transform: uppercase; font-weight: 800; }
     .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 14px var(--cyan); }
     h1 { font-size: clamp(2.7rem, 5.3vw, 4.8rem); line-height: 1.04; letter-spacing: -.065em; margin: 20px 0; max-width: 700px; }
-    .gradient-text { background: linear-gradient(100deg, #f2f6ff 10%, #8bb9ff 54%, #71e0dc 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .hero-copy { color: var(--muted); font-size: 1.08rem; max-width: 620px; }
     .hero-copy strong { color: var(--text); font-weight: 650; }
     .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 9px; border-radius: 12px; padding: 12px 17px; font-size: .93rem; font-weight: 750; border: 1px solid var(--line); transition: transform .2s ease, border-color .2s ease, background .2s ease; cursor: pointer; }
-    .btn:hover { transform: translateY(-2px); border-color: rgba(105,167,255,.6); }
+    
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 9px; border-radius: 12px; padding: 12px 17px; font-size: .93rem; font-weight: 750; border: 1px solid var(--line); transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease; cursor: pointer; }
+    .btn:hover { transform: translateY(-2px); border-color: rgba(105,167,255,.8); box-shadow: 0 4px 20px rgba(105,167,255,.25); }
     .btn-primary { background: linear-gradient(120deg, #78b4ff, #69e0dc); color: #07111d; border: 0; }
+    .btn-primary:hover { background: linear-gradient(120deg, #93c5ff, #84f2ee); }
     .btn-secondary { background: rgba(255,255,255,.025); color: var(--text); }
-    .hero-note { display: flex; gap: 12px; align-items: center; margin-top: 25px; color: var(--muted); font-size: .83rem; }
-    .hero-note span { width: 1px; height: 17px; background: var(--line); }
-    .terminal {
+    .btn-secondary:hover { background: rgba(105,167,255,.12); color: #ffffff; }
+
+    /* Professional UI Summary Card Styles */
+    .profile-card {
       position: relative; overflow: hidden; padding: 0; border: 1px solid rgba(139,178,236,.24); border-radius: 22px;
       background: linear-gradient(145deg, rgba(21,32,54,.97), rgba(9,15,29,.97)); box-shadow: 0 30px 100px rgba(0,0,0,.35), 0 0 65px var(--glow);
-      transform: perspective(900px) rotateY(-3deg) rotateX(2deg);
     }
-    .terminal-top { display: flex; align-items: center; justify-content: space-between; padding: 15px 18px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.025); color: var(--muted); font: .76rem ui-monospace, SFMono-Regular, Menlo, monospace; }
-    .lights { display: flex; gap: 6px; }
-    .lights i { display: block; width: 8px; height: 8px; border-radius: 50%; background: #ff7474; }
-    .lights i:nth-child(2) { background: #f7c96b; } .lights i:nth-child(3) { background: #64d6a0; }
-    .terminal-body { padding: 26px 25px 24px; font: .87rem/1.9 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-    .code-line { display: block; white-space: nowrap; }
-    .prompt { color: var(--cyan); } .code-key { color: #8bb9ff; } .code-string { color: #b8e9bd; } .code-comment { color: #7787a2; }
-    .terminal-divider { border: 0; border-top: 1px solid var(--line); margin: 20px 0; }
+    .profile-card-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.025); }
+    
+    .profile-badge { 
+      display: inline-flex; align-items: center; gap: 7px; font-size: .78rem; font-weight: 750; 
+      color: #4ade80; background: rgba(34, 197, 94, 0.12); padding: 5px 12px; border-radius: 999px; 
+      border: 1px solid rgba(34, 197, 94, 0.35); box-shadow: 0 0 12px rgba(34, 197, 94, 0.15);
+    }
+    .online-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+
+    .profile-card-body { padding: 26px 25px 24px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    .profile-card-title { font-size: 1.15rem; font-weight: 750; color: var(--text); margin-bottom: 6px; letter-spacing: -.02em; }
+    .profile-card-sub { color: var(--muted); font-size: .9rem; line-height: 1.6; margin-bottom: 22px; }
+    .profile-card-divider { border: 0; border-top: 1px solid var(--line); margin: 20px 0; }
+    
     .mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .mini-stat { padding: 13px 10px; border-radius: 12px; background: rgba(255,255,255,.035); border: 1px solid var(--line); }
-    .mini-stat strong { display: block; font-size: 1.23rem; letter-spacing: -.04em; }
+    
+    /* Fun Yellow/Gold Metric Hover Effect with a Star */
+    .mini-stat { 
+      padding: 13px 10px; border-radius: 12px; background: rgba(255,255,255,.035); 
+      border: 1px solid var(--line); text-align: center; 
+      transition: transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease; 
+      cursor: default; position: relative; overflow: hidden;
+    }
+    .mini-stat:hover { 
+      transform: translateY(-4px); 
+      border-color: rgba(245, 158, 11, 0.7); 
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 191, 36, 0.08)); 
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.2); 
+    }
+    .mini-stat strong { display: block; font-size: 1.23rem; letter-spacing: -.04em; color: var(--cyan); transition: color .2s ease; }
+    .mini-stat:hover strong { color: #fbbf24; }
+    .mini-stat strong::after { content: ""; transition: opacity .2s ease; }
+    .mini-stat:hover strong::after { content: " ★"; color: #f59e0b; font-size: 1rem; vertical-align: middle; }
     .mini-stat span { display: block; color: var(--muted); font-size: .7rem; line-height: 1.4; margin-top: 3px; }
+    
+    .profile-card-quote { font-size: .84rem; color: var(--muted); border-left: 2px solid var(--cyan); padding-left: 10px; margin-top: 20px; font-style: italic; }
+    
+    /* General Section Styles */
     section { padding: 76px 0; }
     .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 25px; margin-bottom: 30px; }
     .section-kicker { color: var(--cyan); text-transform: uppercase; letter-spacing: .14em; font-size: .75rem; font-weight: 800; }
     h2 { margin: 8px 0 0; font-size: clamp(1.9rem, 3.2vw, 2.75rem); line-height: 1.12; letter-spacing: -.05em; }
     .section-intro { color: var(--muted); max-width: 510px; margin: 0; font-size: .96rem; }
+    
+    /* Core Strengths Section Styles */
     .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .focus-card { border: 1px solid var(--line); background: linear-gradient(150deg, rgba(19,29,48,.92), rgba(12,19,33,.92)); padding: 24px; border-radius: var(--radius); transition: transform .22s ease, border-color .22s ease; }
     .focus-card:hover { transform: translateY(-4px); border-color: rgba(105,167,255,.42); }
     .icon-box { width: 43px; height: 43px; display: grid; place-items: center; border-radius: 13px; background: rgba(105,167,255,.11); border: 1px solid rgba(105,167,255,.19); color: var(--cyan); margin-bottom: 18px; }
     .icon-box svg { width: 21px; height: 21px; }
-    .focus-card h3, .project-card h3 { margin: 0 0 8px; font-size: 1.12rem; letter-spacing: -.025em; }
-    .focus-card p, .project-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .focus-card h3 { margin: 0 0 8px; font-size: 1.12rem; letter-spacing: -.025em; }
+    .focus-card p { margin: 0; color: var(--muted); font-size: .9rem; }
     .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 17px; }
     .tag { display: inline-flex; padding: 5px 9px; border-radius: 999px; background: rgba(129,164,219,.08); border: 1px solid var(--line); color: #c5d4ed; font-size: .72rem; }
 
+    /* Certifications Section Styles (No hover/clickable effect) */
+    .certs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .cert-card {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 22px 24px; border: 1px solid var(--line); border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(18,27,46,.9), rgba(12,18,32,.9));
+    }
+    .cert-info { display: flex; align-items: center; gap: 16px; }
+    .cert-icon {
+      width: 48px; height: 48px; flex: 0 0 48px; display: grid; place-items: center;
+      border-radius: 14px; background: rgba(104,224,220,.1); border: 1px solid rgba(104,224,220,.22);
+      color: var(--cyan); font-weight: 800; font-size: .9rem;
+    }
+    .cert-details h3 { margin: 0 0 4px; font-size: 1.05rem; letter-spacing: -.02em; }
+    .cert-details p { margin: 0; color: var(--muted); font-size: .83rem; }
+    .cert-status {
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: 999px;
+      font-size: .73rem; font-weight: 750; white-space: nowrap;
+      color: #ff9f43; background: rgba(255,159,67,.12); border: 1px solid rgba(255,159,67,.3);
+    }
+
+    /* Testimonials Carousel Section Styles */
+    .testimonials-section { background: linear-gradient(180deg, rgba(15,24,42,.4), transparent); }
+    .testimonial-wrapper { position: relative; max-width: 860px; margin: 0 auto; }
+    .testimonial-card {
+      display: none; padding: 36px 32px; border: 1.5px solid rgba(170, 192, 229, 0.28); border-radius: 24px;
+      background: linear-gradient(150deg, rgba(20,31,52,.96), rgba(11,18,31,.96));
+      box-shadow: 0 20px 50px rgba(0,0,0,.3); text-align: left;
+      transition: border-color .3s ease, box-shadow .3s ease;
+    }
+    .testimonial-card:hover { border-color: rgba(105,167,255,.5); box-shadow: 0 22px 60px rgba(105,167,255,.12); }
+    .testimonial-card.active { display: block; animation: fadeIn .4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .testimonial-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; border-bottom: 1px solid rgba(170, 192, 229, 0.22); padding-bottom: 14px; }
+    .testimonial-source { display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 700; color: var(--cyan); background: rgba(104,224,220,.1); padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(104,224,220,.25); }
+    .testimonial-date { font-size: .78rem; color: var(--muted); font-family: monospace; }
+    
+    .testimonial-text { font-size: 1.05rem; line-height: 1.7; color: var(--text); margin-bottom: 22px; }
+    .testimonial-author { font-weight: 750; color: var(--text); font-size: .98rem; margin: 0; }
+    .testimonial-role { font-size: .82rem; color: var(--muted); margin-top: 2px; }
+    
+    .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 24px; }
+    .carousel-btn {
+      width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid rgba(170, 192, 229, 0.3);
+      background: var(--surface); color: var(--text); cursor: pointer; display: grid; place-items: center;
+      transition: background .2s ease, border-color .2s ease, color .2s ease;
+    }
+    .carousel-btn:hover { background: rgba(105,167,255,.15); border-color: var(--cyan); color: var(--cyan); }
+    .carousel-dots { display: flex; gap: 8px; align-items: center; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); cursor: pointer; transition: background .2s ease, width .2s ease; }
+    .dot.active { background: var(--cyan); width: 22px; border-radius: 999px; }
+
+    /* Systems / Marquee Section Styles */
     .systems-section { padding-top: 34px; padding-bottom: 54px; overflow: hidden; }
     .systems-heading { text-align: center; margin-bottom: 25px; }
     .systems-heading .section-intro { max-width: 650px; margin: 13px auto 0; }
@@ -99,7 +195,6 @@
       display: flex; align-items: center; gap: 18px; width: max-content;
       animation: logo-drift-right 42s linear infinite;
     }
-    .logo-marquee:hover .logo-track { animation-play-state: paused; }
     .system-logo {
       min-width: 155px; height: 76px; padding: 13px 18px; display: flex;
       align-items: center; justify-content: center; gap: 10px;
@@ -119,18 +214,32 @@
       from { transform: translateX(-50%); }
       to { transform: translateX(0); }
     }
-    @media (prefers-reduced-motion: reduce) {
-      .logo-track { animation: none; }
-      .logo-marquee { overflow-x: auto; mask-image: none; -webkit-mask-image: none; }
-    }
 
+    /* Projects / Portfolio Section Styles */
     .projects-section { background: linear-gradient(180deg, transparent, rgba(15,24,42,.5), transparent); }
+    
     .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
-    .filter-btn { border: 1px solid var(--line); background: rgba(255,255,255,.025); color: var(--muted); padding: 8px 13px; border-radius: 999px; cursor: pointer; font-size: .82rem; }
+    .filter-btn { border: 1px solid var(--line); background: rgba(255,255,255,.025); color: var(--muted); padding: 8px 13px; border-radius: 999px; cursor: pointer; font-size: .82rem; transition: transform .2s ease, border-color .2s ease, background .2s ease, color .2s ease; }
+    .filter-btn:hover { transform: translateY(-2px); border-color: rgba(105,167,255,.8); color: var(--text); background: rgba(105,167,255,.1); }
     .filter-btn[aria-pressed="true"] { color: #07111d; background: var(--cyan); border-color: var(--cyan); font-weight: 800; }
+    .filter-btn[aria-pressed="true"]:hover { background: #84f2ee; }
+
     .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
     .project-card { overflow: hidden; border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); transition: transform .22s ease, border-color .22s ease; }
     .project-card:hover { transform: translateY(-4px); border-color: rgba(105,167,255,.45); }
+    
+    /* Greyed out upcoming / unpublished project card style */
+    .project-card.upcoming {
+      opacity: 0.65;
+      filter: grayscale(25%);
+      border-style: dashed;
+    }
+    .project-card.upcoming:hover {
+      transform: none;
+      border-color: var(--line);
+      box-shadow: none;
+    }
+
     .project-card[hidden] { display: none; }
     .project-art { min-height: 168px; padding: 22px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: #111e34; }
     .project-art::before, .project-art::after { content: ""; position: absolute; border: 1px solid rgba(134,184,255,.24); border-radius: 50%; width: 220px; height: 220px; }
@@ -143,32 +252,52 @@
     .project-content { padding: 21px; }
     .project-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; color: var(--cyan); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; }
     .status-label { color: #e7c47a; background: rgba(231,196,122,.09); border: 1px solid rgba(231,196,122,.2); border-radius: 999px; padding: 4px 7px; letter-spacing: 0; text-transform: none; font-weight: 650; }
-    .project-link { display: inline-flex; margin-top: 18px; gap: 7px; align-items: center; color: var(--text); font-size: .83rem; font-weight: 750; }
-    .project-link:hover { color: var(--cyan); }
-    .project-note { color: var(--muted); font-size: .82rem; margin-top: 18px; }
+    .project-card h3 { margin: 0 0 8px; font-size: 1.12rem; letter-spacing: -.025em; }
+    .project-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+    
+    /* Button-style project links */
+    .project-link { 
+      display: inline-flex; margin-top: 20px; gap: 8px; align-items: center; justify-content: center;
+      color: var(--text); font-size: .85rem; font-weight: 750; padding: 9px 15px; border-radius: 10px;
+      border: 1px solid rgba(105,167,255,.3); background: rgba(105,167,255,.08);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease; 
+    }
+    .project-link:hover { 
+      color: var(--text); border-color: rgba(105,167,255,.8); background: rgba(105,167,255,.2); 
+      transform: translateY(-2px); box-shadow: 0 4px 15px rgba(105,167,255,.2);
+    }
+
+    /* About Me Section Styles */
     .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 45px; align-items: start; }
-    .about-panel { border: 1px solid var(--line); background: linear-gradient(145deg, rgba(20,32,53,.85), rgba(11,18,31,.8)); border-radius: var(--radius); padding: 26px; }
-    .about-panel h3 { margin: 0 0 12px; }
-    .about-panel p { margin: 0; color: var(--muted); }
-    .about-copy p { color: var(--muted); margin: 0 0 17px; }
-    .about-copy strong { color: var(--text); }
-    .principles { display: grid; gap: 11px; margin-top: 20px; }
-    .principle { display: flex; gap: 11px; align-items: flex-start; color: #d5e1f4; font-size: .9rem; }
+    .principles { display: grid; gap: 12px; margin-top: 0; }
+    
+    .principle { display: flex; gap: 12px; align-items: flex-start; color: #edf3ff; font-size: .92rem; background: linear-gradient(135deg, rgba(21, 35, 60, 0.95), rgba(13, 22, 38, 0.95)); padding: 16px 20px; border-radius: 14px; border: 1px solid rgba(104, 224, 220, 0.3); box-shadow: 0 4px 16px rgba(0,0,0,0.2); transition: transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease; }
+    .principle:hover { transform: translateY(-3px); border-color: rgba(104, 224, 220, 0.85); background: linear-gradient(135deg, rgba(28, 48, 82, 0.98), rgba(18, 30, 52, 0.98)); box-shadow: 0 6px 24px rgba(104, 224, 220, 0.15); }
     .check { color: var(--cyan); font-weight: 900; }
+
+    /* Contact Section & Footer Styles */
     .contact-panel { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: clamp(26px, 5vw, 48px); border: 1px solid rgba(105,167,255,.27); border-radius: 26px; background: radial-gradient(ellipse at 90% 0%, rgba(64,124,213,.2), transparent 45%), var(--surface); }
     .contact-panel p { color: var(--muted); max-width: 570px; margin: 12px 0 0; }
     footer { border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font-size: .8rem; }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
     .footer-links { display: flex; gap: 17px; }
     .footer-links a:hover { color: var(--text); }
+    
+    /* Animation & Reveal Utility Styles */
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .65s ease, transform .65s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     :focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
+    
+    @media (prefers-reduced-motion: reduce) { 
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } 
+      .reveal { opacity: 1; transform: none; } 
+    }
+    
+    /* Mobile Responsive Breakpoints */
     @media (max-width: 850px) {
       .hero { grid-template-columns: 1fr; gap: 38px; padding-top: 70px; }
-      .terminal { max-width: 650px; transform: none; }
-      .focus-grid, .project-grid { grid-template-columns: repeat(2, 1fr); }
+      .profile-card { max-width: 650px; transform: none; }
+      .focus-grid, .project-grid, .certs-grid { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; gap: 24px; }
       .section-heading { align-items: start; flex-direction: column; }
     }
@@ -184,17 +313,22 @@
       .hero { min-height: auto; padding: 62px 0 54px; }
       h1 { font-size: clamp(2.6rem, 12vw, 4rem); }
       section { padding: 57px 0; }
-      .focus-grid, .project-grid { grid-template-columns: 1fr; }
-      .terminal-body { padding: 19px 15px; font-size: .75rem; }
+      .profile-card-body { padding: 19px 15px; font-size: .75rem; }
       .mini-stats { gap: 6px; }
       .mini-stat { padding: 10px 7px; }
       .mini-stat strong { font-size: 1.05rem; }
+      .cert-card { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .testimonial-card { padding: 26px 18px; }
       .contact-panel { align-items: flex-start; flex-direction: column; }
       .footer-inner { align-items: flex-start; flex-direction: column; }
     }
   </style>
 </head>
 <body>
+
+  <!-- ==========================================
+       NAVIGATION BAR SECTION
+       ========================================== -->
   <div class="nav-wrap">
     <nav class="container" aria-label="Main navigation">
       <a class="brand" href="#home" aria-label="Jean Lasso-Sanchez home">
@@ -202,57 +336,161 @@
       </a>
       <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
       <div class="nav-links" id="navLinks">
-        <a href="#focus">What I Do</a>
         <a href="#systems">Systems</a>
         <a href="#projects">Portfolio</a>
+		<a href="#focus">What I Do</a>
+        <a href="#certs">Certifications</a>
+        <a href="#testimonials">Endorsements</a>
         <a href="#about">About</a>
-        <a class="nav-cta" href="#contact">Get in touch ↗</a>
+        <a class="nav-cta" href="#contact"><strong>Get in touch</strong></a>
       </div>
     </nav>
   </div>
 
   <main>
+    <!-- ==========================================
+         HERO SECTION & PROFESSIONAL UI CARD
+         ========================================== -->
     <header class="container hero" id="home">
       <div class="reveal">
         <div class="eyebrow"><span class="status-dot"></span> Technical Support · IT Operations · Security, Risk & Compliance</div>
         <h1>Want to know if I'm qualified?<br></h1>
-        <p class="hero-copy">I'm Jean, an IT professional with <strong>5+ years of experience that your team needs. Your next standout hire is right here</strong> — skilled, adaptable, and ready to deliver measurable impact.</p>
+        <p class="hero-copy">I am an IT professional with <strong>5+ years of experience that your team needs. Your next standout hire is right here</strong>—skilled, adaptable, and ready to deliver measurable impact.</p>
         <div class="actions">
           <a class="btn btn-primary" href="#projects">Explore my work <span aria-hidden="true">↘</span></a>
-          <a class="btn btn-secondary" href="#contact">Let's connect <span aria-hidden="true">↗</span></a>
+          <a class="btn btn-secondary" href="#contact">Let's connect !</a>
         </div>
-        <!--<div class="hero-note"><span>Hablo Espanol tambien</span></div>--!>
       </div>
 
-      <div class="terminal reveal" aria-label="Decorative terminal-style summary">
-        <div class="terminal-top"><span class="lights"><i></i><i></i><i></i></span><span>jean@portfolio: ~/overview</span><span>● online</span></div>
-        <div class="terminal-body">
-          <span class="code-line"><span class="prompt">$</span> who.am.i</span>
-          <span class="code-line"><span class="code-string">Problem Solver & Your Next Employee</span></span>
-          <br>
-          <span class="code-line"><span class="prompt">$</span> cat focus.json</span>
-          <span class="code-line">{</span>
-          <span class="code-line">&nbsp;&nbsp;<span class="code-key">"Systems"</span>: <span class="code-string">"support & administration"</span>,</span>
-          <span class="code-line">&nbsp;&nbsp;<span class="code-key">"Troubleshooting"</span>: <span class="code-string">"find the root cause"</span>,</span>
-          <span class="code-line">&nbsp;&nbsp;<span class="code-key">"Security"</span>: <span class="code-string">"risk & compliance, audit"</span>,</span>
-          <span class="code-line">&nbsp;&nbsp;<span class="code-key">"Mindset"</span>: <span class="code-string">"learn, document, improve"</span></span>
-          <span class="code-line">}</span>
-          <hr class="terminal-divider">
+      <div class="profile-card reveal" aria-label="Professional Summary Widget">
+        <div class="profile-card-header">
+          <span style="font-size: .78rem; color: var(--muted); font-family: monospace;"></span>
+          <div class="profile-badge"><span class="online-dot"></span> Available for hire</div>
+        </div>
+        <div class="profile-card-body">
+          <div class="profile-card-title">Technical Support & Solutions Professional</div>
+          <div class="profile-card-sub">Bridging complex technical investigations, client escalations, and reliable system operations.</div>
+          <hr class="profile-card-divider">
           <div class="mini-stats">
             <div class="mini-stat"><strong>375+</strong><span>Escalated issues handled</span></div>
-			<div class="mini-stat"><strong>99%</strong><span>Avg. CSAT Score through customer-first support</span></div>
-            <div class="mini-stat"><strong>10+</strong><span>Led implementation engagements</span></div>
+            <div class="mini-stat"><strong>99%</strong><span>Avg. CSAT Score</span></div>
+            <div class="mini-stat"><strong>10+</strong><span>Led implementations</span></div>
           </div>
-          <p class="code-comment" style="margin:17px 0 0;font-size:.85rem">// Curious by nature. Practical by design.</p>
+          <div class="profile-card-quote">
+            "Turning technical investigations and compliance frameworks into measurable business value."
+          </div>
         </div>
       </div>
     </header>
+	
+    <!-- ==========================================
+         SYSTEMS / MARQUEE SECTION
+         ========================================== -->
+    <section class="systems-section" id="systems" aria-labelledby="systems-title">
+      <div class="container">
+        <div class="systems-heading reveal">
+          <div class="section-kicker">Tools & platforms</div>
+          <h2 id="systems-title">Systems I've worked with.</h2>
+          <p class="section-intro">A selection of technologies I've gained expertise in across technical support for healthcare & enterprise clients, IT operations, analytics, and compliance.</p>
+        </div>
+      </div>
+      <div class="logo-marquee" aria-label="Scrolling list of systems and technologies">
+        <div class="logo-track">
+          <div class="system-logo"><span class="system-mark">M365</span>Microsoft 365</div>
+          <div class="system-logo"><span class="system-mark">AZ</span>Azure/Entra ID</div>
+          <div class="system-logo"><span class="system-mark">AD</span>ADFS</div>
+          <div class="system-logo"><span class="system-mark">DUO</span>Cisco Duo</div>
+          <div class="system-logo"><span class="system-mark">SN</span>ServiceNow</div>
+          <div class="system-logo"><span class="system-mark">ZD</span>Zendesk</div>
+          <div class="system-logo"><span class="system-mark">EP</span>Epic EHR</div>
+          <div class="system-logo"><span class="system-mark">CTX</span>Citrix</div>
+          <div class="system-logo"><span class="system-mark">SQL</span>SQL</div>
+          <div class="system-logo"><span class="system-mark">Py</span>Python</div>
+          <div class="system-logo"><span class="system-mark">PBI</span>Power BI</div>
+          <div class="system-logo"><span class="system-mark">SL</span>Sumo Logic</div>
+          <div class="system-logo"><span class="system-mark">JR</span>Jira</div>
+          <div class="system-logo"><span class="system-mark">OK</span>Okta SSO</div>
+          <div class="system-logo"><span class="system-mark">WK</span>Workiva</div>
+          <div class="system-logo"><span class="system-mark">AI</span>Claude & ChatGPT</div>
+          <!-- Duplicate set for infinite loop smoothness -->
+          <div class="system-logo"><span class="system-mark">M365</span>Microsoft 365</div>
+          <div class="system-logo"><span class="system-mark">AZ</span>Azure/Entra ID</div>
+          <div class="system-logo"><span class="system-mark">AD</span>ADFS</div>
+          <div class="system-logo"><span class="system-mark">DUO</span>Cisco Duo</div>
+          <div class="system-logo"><span class="system-mark">SN</span>ServiceNow</div>
+          <div class="system-logo"><span class="system-mark">ZD</span>Zendesk</div>
+          <div class="system-logo"><span class="system-mark">EP</span>Epic EHR</div>
+          <div class="system-logo"><span class="system-mark">CTX</span>Citrix</div>
+          <div class="system-logo"><span class="system-mark">SQL</span>SQL</div>
+          <div class="system-logo"><span class="system-mark">Py</span>Python</div>
+          <div class="system-logo"><span class="system-mark">PBI</span>Power BI</div>
+          <div class="system-logo"><span class="system-mark">SL</span>Sumo Logic</div>
+          <div class="system-logo"><span class="system-mark">JR</span>Jira</div>
+          <div class="system-logo"><span class="system-mark">OK</span>Okta SSO</div>
+          <div class="system-logo"><span class="system-mark">WK</span>Workiva</div>
+          <div class="system-logo"><span class="system-mark">AI</span>Claude & ChatGPT</div>
+        </div>
+      </div>
+      <p class="systems-footnote">The list highlights tools I've used in my professional career.<strong> If you need me to learn a tool not on the list, just let me know.</strong></p>
+    </section>
 
-    <section id="focus">
+    <!-- ==========================================
+         PROFESSIONAL WORK / PROJECTS SECTION
+         ========================================== -->
+    <section class="projects-section" id="projects">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div><div class="section-kicker">Professional work</div><h2>Projects, labs & technical writeups.</h2></div>
+          <p class="section-intro">A growing collection of practical walkthroughs that displays how I <strong>investigate, document,</strong> and <strong>solve</strong> technical problems.</p>
+        </div>
+        <div class="filters reveal" role="group" aria-label="Filter portfolio projects">
+          <button class="filter-btn" data-filter="all" aria-pressed="true">All work</button>
+        </div>
+        <div class="project-grid" id="projectGrid">
+          <article class="project-card reveal" data-category="troubleshooting">
+            <div class="project-art art-blue"><div class="art-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5M8 11h5M10.5 8.5v5"/></svg></div></div>
+            <div class="project-content">
+              <div class="project-meta"><span>Deep Dive</span><span class="status-label" style="color: #64d6a0; background: rgba(100,214,160,.09); border: 1px solid rgba(100,214,160,.2);">Completed</span></div>
+              <h3>Resolving Complex IAM & Azure SSO Failures</h3>
+              <p>A deep-dive technical investigation into resolving a returning user's login deadlock by tracking down SAML claims conflicts in Sumo Logic logs.</p>
+              <div class="tags"><span class="tag">Azure SSO</span><span class="tag">Sumo Logic</span><span class="tag">ServiceNow</span></div>
+              <a class="project-link" href="iam-troubleshooting-case.html" aria-label="View IAM troubleshooting case study">Read case study <span>↗</span></a>
+            </div>
+          </article>
+          
+          <!-- Greyed out upcoming project card -->
+          <article class="project-card upcoming reveal" data-category="lab security">
+            <div class="project-art art-teal" style="filter: grayscale(40%);"><div class="art-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01M11 7h6M11 17h6"/></svg></div></div>
+            <div class="project-content">
+              <div class="project-meta"><span>Lab build</span><span class="status-label" style="color: #ff9f43; background: rgba(255,159,67,.12); border: 1px solid rgba(255,159,67,.3);">Planned</span></div>
+              <h3>Home Lab & Systems Administration</h3>
+              <p>A documented lab environment covering setup decisions, configuration, access controls, testing, and troubleshooting.</p>
+              <div class="tags"><span class="tag">Virtualization</span><span class="tag">Networking</span><span class="tag">Identity</span></div>
+              <span class="project-link" style="color: var(--muted); border-color: var(--line); background: transparent; cursor: default;">Lab walkthrough coming soon</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-category="troubleshooting lab security">
+            <div class="project-art art-blue"><div class="art-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v3"/></svg></div></div>
+            <div class="project-content">
+              <div class="project-meta"><span>Deployment Workflow</span><span class="status-label" style="color: #64d6a0; background: rgba(100,214,160,.09); border: 1px solid rgba(100,214,160,.2);">Completed</span></div>
+              <h3>IT Change Management & Version Control</h3>
+              <p>Demonstrated a simulated controlled process for updating a live website using Git version control, change requests, and peer reviews.</p>
+              <div class="tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Change Management</span><span class="tag">ITGC</span></div>
+              <a class="project-link" href="change.management.cs.html" aria-label="View IT Change Management case study">View evidence <span>↗</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+	
+    <!-- ==========================================
+         CORE STRENGTHS SECTION
+         ========================================== -->
+	<section id="focus">
       <div class="container">
         <div class="section-heading reveal">
           <div><div class="section-kicker">Core strengths</div><h2>Where technology meets problem solving.</h2></div>
-      <!--  <p class="section-intro">A mix of practical technical experience and risk awareness, built around making systems more reliable, secure, and easier to use.</p> --!>
         </div>
         <div class="focus-grid">
           <article class="focus-card reveal">
@@ -277,122 +515,161 @@
       </div>
     </section>
 
-
-    <section class="systems-section" id="systems" aria-labelledby="systems-title">
-      <div class="container">
-        <div class="systems-heading reveal">
-          <div class="section-kicker">Tools & platforms</div>
-          <h2 id="systems-title">Systems I've worked with.</h2>
-          <p class="section-intro">A selection of technologies I've gained expertise in across technical support, enterprise healthcare, IT operations, analytics, and compliance.</p>
-        </div>
-      </div>
-      <div class="logo-marquee" aria-label="Scrolling list of systems and technologies">
-        <div class="logo-track">
-          <div class="system-logo"><span class="system-mark">M365</span>Microsoft 365</div>
-          <div class="system-logo"><span class="system-mark">AZ</span>Azure/Entra ID</div>
-          <div class="system-logo"><span class="system-mark">AD</span>ADFS</div>
-		  <div class="system-logo"><span class="system-mark">DUO</span>Cisco Duo</div>
-		  <div class="system-logo"><span class="system-mark">SN</span>ServiceNow</div>
-          <div class="system-logo"><span class="system-mark">ZD</span>Zendesk</div>
-		  <div class="system-logo"><span class="system-mark">EP</span>Epic EHR</div>
-          <div class="system-logo"><span class="system-mark">CTX</span>Citrix</div>
-          <div class="system-logo"><span class="system-mark">SQL</span>SQL</div>
-          <div class="system-logo"><span class="system-mark">Py</span>Python</div>
-          <div class="system-logo"><span class="system-mark">PBI</span>Power BI</div>
-          <div class="system-logo"><span class="system-mark">SL</span>Sumo Logic</div>
-          <div class="system-logo"><span class="system-mark">JR</span>Jira</div>
-          <div class="system-logo"><span class="system-mark">OK</span>Okta SSO</div>
-          <div class="system-logo"><span class="system-mark">WK</span>Workiva</div>
-          <div class="system-logo"><span class="system-mark">AI</span>Claude & ChatGPT</div>
-          <!-- Duplicate set makes the marquee loop smoothly. -->
-          <div class="system-logo"><span class="system-mark">M365</span>Microsoft 365</div>
-          <div class="system-logo"><span class="system-mark">AZ</span>Azure/Entra ID</div>
-          <div class="system-logo"><span class="system-mark">AD</span>ADFS</div>
-		  <div class="system-logo"><span class="system-mark">DUO</span>Cisco Duo</div>
-		  <div class="system-logo"><span class="system-mark">SN</span>ServiceNow</div>
-          <div class="system-logo"><span class="system-mark">ZD</span>Zendesk</div>
-		  <div class="system-logo"><span class="system-mark">EP</span>Epic EHR</div>
-          <div class="system-logo"><span class="system-mark">CTX</span>Citrix</div>
-          <div class="system-logo"><span class="system-mark">SQL</span>SQL</div>
-          <div class="system-logo"><span class="system-mark">Py</span>Python</div>
-          <div class="system-logo"><span class="system-mark">PBI</span>Power BI</div>
-          <div class="system-logo"><span class="system-mark">SL</span>Sumo Logic</div>
-          <div class="system-logo"><span class="system-mark">JR</span>Jira</div>
-          <div class="system-logo"><span class="system-mark">OK</span>Okta SSO</div>
-          <div class="system-logo"><span class="system-mark">WK</span>Workiva</div>
-          <div class="system-logo"><span class="system-mark">AI</span>Claude & ChatGPT</div>
-        </div>
-      </div>
-      <p class="systems-footnote">The list highlights tools I've used in my professional career. If you need me to learn a tool not on the list, just let me know.</p>
-    </section>
-
-    <section class="projects-section" id="projects">
+    <!-- ==========================================
+         CERTIFICATIONS & CREDENTIALS SECTION
+         ========================================== -->
+    <section id="certs">
       <div class="container">
         <div class="section-heading reveal">
-          <div><div class="section-kicker">Professional work</div><h2>Projects, labs & technical writeups.</h2></div>
-          <p class="section-intro">A growing collection of practical walkthroughs that displays how I <strong>investigate, document,</strong> and <strong>solve</strong> technical problems.</p>
+          <div>
+            <div class="section-kicker">Continuous Learning</div>
+            <h2>Certifications & Credentials</h2>
+          </div>
+          <p class="section-intro">Formalizing expertise across IT governance, audit standards, and enterprise cybersecurity.</p>
         </div>
-        <div class="filters reveal" role="group" aria-label="Filter portfolio projects">
-          <button class="filter-btn" data-filter="all" aria-pressed="true">All work</button>
-          <button class="filter-btn" data-filter="troubleshooting" aria-pressed="false">Troubleshooting</button>
-          <button class="filter-btn" data-filter="lab" aria-pressed="false">Home labs</button>
-          <button class="filter-btn" data-filter="automation" aria-pressed="false">Scripting & automation</button>
-          <button class="filter-btn" data-filter="security" aria-pressed="false">Security & GRC</button>
-        </div>
-        <div class="project-grid" id="projectGrid">
-          <article class="project-card reveal" data-category="troubleshooting">
-            <div class="project-art art-blue"><div class="art-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5M8 11h5M10.5 8.5v5"/></svg></div></div>
-            <div class="project-content">
-              <div class="project-meta"><span>Deep dive</span><span class="status-label">Planned</span></div>
-              <h3>Root Cause Troubleshooting</h3>
-              <p>A structured walkthrough showing symptoms, investigation steps, logs, findings, resolution, and lessons learned.</p>
-              <div class="tags"><span class="tag">Logs</span><span class="tag">Diagnostics</span><span class="tag">Documentation</span></div>
-              <a class="project-link" href="#contact" aria-label="Ask about the troubleshooting case study">Case study coming soon <span>↗</span></a>
+        <div class="certs-grid">
+          <div class="cert-card reveal">
+            <div class="cert-info">
+              <div class="cert-icon">CISA</div>
+              <div class="cert-details">
+                <h3>Certified Information Systems Auditor (CISA)</h3>
+                <p>ISACA · IT Audit, Control & Cybersecurity Governance</p>
+              </div>
             </div>
-          </article>
-          <article class="project-card reveal" data-category="lab security">
-            <div class="project-art art-teal"><div class="art-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01M11 7h6M11 17h6"/></svg></div></div>
-            <div class="project-content">
-              <div class="project-meta"><span>Lab build</span><span class="status-label">Planned</span></div>
-              <h3>Home Lab & Systems Administration</h3>
-              <p>A documented lab environment covering setup decisions, configuration, access controls, testing, and troubleshooting.</p>
-              <div class="tags"><span class="tag">Virtualization</span><span class="tag">Networking</span><span class="tag">Identity</span></div>
-              <a class="project-link" href="#contact" aria-label="Ask about the home lab project">Lab walkthrough coming soon <span>↗</span></a>
+            <span class="cert-status"><span class="status-dot" style="background:#ff9f43; box-shadow:none; width:6px; height:6px;"></span> In Progress</span>
+          </div>
+          <div class="cert-card reveal">
+            <div class="cert-info">
+              <div class="cert-icon">SEC+</div>
+              <div class="cert-details">
+                <h3>CompTIA Security+</h3>
+                <p>CompTIA · Systems Security, Risk Management & Threat Analysis</p>
+              </div>
             </div>
-          </article>
-          <article class="project-card reveal" data-category="troubleshooting lab security">
-            <div class="project-art art-blue"><div class="art-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v3"/></svg></div></div>
-            <div class="project-content">
-              <div class="project-meta"><span>Deployment Workflow</span><span class="status-label" style="color: #64d6a0; background: rgba(100,214,160,.09); border: 1px solid rgba(100,214,160,.2);">Completed</span></div>
-              <h3>IT Change Management & Version Control</h3>
-              <p>Demonstrated a controlled process for updating a live website using Git version control, change requests, and peer reviews.</p>
-              <div class="tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Change Management</span><span class="tag">ITGC</span></div>
-              <a class="project-link" href="change.management.cs.html" aria-label="View IT Change Management case study">View evidence <span>↗</span></a>
-            </div>
-          </article>
+            <span class="cert-status"><span class="status-dot" style="background:#ff9f43; box-shadow:none; width:6px; height:6px;"></span> In Progress</span>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- ==========================================
+         TESTIMONIALS / SHOUTOUTS CAROUSEL SECTION
+         ========================================== -->
+    <section class="testimonials-section" id="testimonials">
+      <div class="container">
+        <div class="section-heading reveal" style="text-align: center; justify-content: center; margin-bottom: 40px;">
+          <div>
+            <div class="section-kicker">Peer & Client Recognition</div>
+            <h2>Shoutouts & Team Endorsements</h2>
+          </div>
+        </div>
+        <div class="testimonial-wrapper reveal">
+          <!-- Slide 1: Mike D -->
+          <div class="testimonial-card active">
+            <div class="testimonial-header">
+              <span class="testimonial-source">💬 Slack Shoutout</span>
+              <span class="testimonial-date">Feb 28, 2026</span>
+            </div>
+            <p class="testimonial-text">"Great work @Jean Lasso-Sanchez thanks so much for your help in getting Kimber up and running so she could meet her deadline!!!"</p>
+            <p class="testimonial-author">Mike D.</p>
+            <p class="testimonial-role">VP of Customer Success at uPerform</p>
+          </div>
+
+          <!-- Slide 2: Aneek R -->
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <span class="testimonial-source">💬 Slack Shoutout</span>
+              <span class="testimonial-date">Feb 27, 2026</span>
+            </div>
+            <p class="testimonial-text">"Shout out to @Jean Lasso-Sanchez for helping Kimber at UPMC troubleshoot an Amazon Polly issue well into the evening hours on a Friday, and for finding the root cause (which turned out to be GlobalProtect VPN)!"</p>
+            <p class="testimonial-author">Aneek R.</p>
+            <p class="testimonial-role">Professional Services at uPerform</p>
+          </div>
+
+          <!-- Slide 3: Catherine (Liz) S -->
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <span class="testimonial-source">⭐ Client Feedback</span>
+              <span class="testimonial-date">Jun 22, 2025</span>
+            </div>
+            <p class="testimonial-text">"While getting a support account set up is NOT easy, once I submitted a ticket I was really pleased with the assistance I received. Jean was quick to respond and very helpful on a Zoom. I appreciate the extra effort he took to modify my 'corrupted' file that I couldn't even get to open on my computer so that I didn't have to start from scratch - this was EXTREMELY helpful to me and much appreciated!"</p>
+            <p class="testimonial-author">Catherine (Liz) S.</p>
+            <p class="testimonial-role">Client</p>
+          </div>
+
+          <!-- Slide 4: Rhiannon D -->
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <span class="testimonial-source">⭐ Client Feedback</span>
+              <span class="testimonial-date">Aug 25, 2025</span>
+            </div>
+            <p class="testimonial-text">"Jean was very responsive and found a solution quickly."</p>
+            <p class="testimonial-author">Rhiannon D.</p>
+            <p class="testimonial-role">Client</p>
+          </div>
+		  
+		  <!-- Slide 5: Wes Hendrix -->
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <span class="testimonial-source">⭐ Client Feedback</span>
+              <span class="testimonial-date">Apr 18, 2025</span>
+            </div>
+            <p class="testimonial-text">"Everything was exceptional, and a done with no interruptions. Greatly appreciated."</p>
+            <p class="testimonial-author">Wes H.</p>
+            <p class="testimonial-role">Client</p>
+          </div>
+		  
+		  <!-- Slide 6: Tina Bright -->
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <span class="testimonial-source">⭐ Client Feedback</span>
+              <span class="testimonial-date">Jul 15, 2025</span>
+            </div>
+            <p class="testimonial-text">"He quickly resolved the issue. Thank you!"</p>
+            <p class="testimonial-author">Tina B.</p>
+            <p class="testimonial-role">Client</p>
+          </div>
+
+          <!-- Carousel Controls -->
+          <div class="carousel-controls">
+            <button class="carousel-btn" id="prevTestimonial" aria-label="Previous testimonial">←</button>
+            <div class="carousel-dots" id="carouselDots">
+              <span class="dot active" data-index="0"></span>
+              <span class="dot" data-index="1"></span>
+              <span class="dot" data-index="2"></span>
+              <span class="dot" data-index="3"></span>
+			  <span class="dot" data-index="4"></span>
+			  <span class="dot" data-index="5"></span>
+            </div>
+            <button class="carousel-btn" id="nextTestimonial" aria-label="Next testimonial">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         ABOUT ME SECTION
+         ========================================== -->
     <section id="about">
       <div class="container about-grid">
         <div class="reveal">
           <div class="section-kicker">A little about me</div>
           <h2>Technical thinking.<br>Client-focused.<br>Business awareness.</h2>
         </div>
-       <!-- <div class="about-copy reveal">
-          <p>My background spans application technology support and IT governance. That combination taught me to look beyond the immediate error: understand the impact, find the root cause, communicate clearly, and help prevent the issue from recurring.</p>
-          <p>This portfolio is where I document what I know, what I build, and what I'm learning next. Each writeup will focus on the <strong>problem, approach, evidence, result, and takeaways</strong> so you, a recruiter, or technical teammate can follow the reasoning.</p> --!>
+        <div class="reveal">
           <div class="principles">
-            <div class="principle"><span class="check">✓</span><span><strong>Bachelor's Degree in Computer Information Systems from Stevenson University.</strong></span></div>
-            <div class="principle"><span class="check">✓</span><span><strong>Current Role: Technical Support Engineer at uPerform.</strong></span></div>
-            <div class="principle"><span class="check">✓</span><span><strong>Previous Role: IT Risk Consultant at Clearview Group (aquired by Citron Cooperman).</strong></span></div>
-			<div class="principle"><span class="check">✓</span><span><strong>También hablo español para cualquier necesidad.</strong></span></div>
+            <div class="principle"><span class="check">✓</span><span><strong>Bachelor's Degree in Computer Information Systems</strong> from Stevenson University.</span></div>
+            <div class="principle"><span class="check">✓</span><span><strong>Current Role: Technical Support Engineer</strong> at uPerform.</span></div>
+            <div class="principle"><span class="check">✓</span><span><strong>Previous Role: IT Risk Consultant</strong> at Clearview Group (acquired by Citrin Cooperman).</span></div>
+            <div class="principle"><span class="check">✓</span><span><strong>Bilingual Support:</strong> También hablo español para cualquier necesidad.</span></div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- ==========================================
+         CONTACT / CALL-TO-ACTION SECTION
+         ========================================== -->
     <section id="contact">
       <div class="container">
         <div class="contact-panel reveal">
@@ -402,15 +679,18 @@
             <p>I'm interested in opportunities where technical problem solving, reliable systems, and continuous improvement make a difference.</p>
           </div>
           <div class="actions" style="margin-top:0">
-            <a class="btn btn-primary" href="https://www.linkedin.com/in/jean-lasso-sanchez-3255ba190" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-			<a class="btn btn-secondary" href="Jean-Lasso-Sanchez-Resume.pdf" target="_blank" aria-label="Download Jean's Resume as a PDF">Download resume (PDF) ↓</a>
-            <a class="btn btn-primary" href="mailto:j.sanchez609@hotmail.com?subject=Portfolio%20Inquiry" aria-label="Email Jean Lasso-Sanchez">Email me ↗</a>
+            <a class="btn btn-primary" href="https://www.linkedin.com/in/jean-lasso-sanchez-3255ba190" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="btn btn-secondary" href="Jean-Lasso-Sanchez-Resume.pdf" target="_blank" aria-label="Download Jean's Resume as a PDF">Download resume (PDF) ↓</a>
+            <a class="btn btn-primary" href="mailto:j.sanchez609@hotmail.com?subject=I%20Want%20To%20Hire%20You" aria-label="Email Jean Lasso-Sanchez">Email me</a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- ==========================================
+       FOOTER SECTION
+       ========================================== -->
   <footer>
     <div class="container footer-inner">
       <span>© <span id="year"></span> Jean Lasso-Sanchez · Built to succeed.</span>
@@ -418,8 +698,11 @@
     </div>
   </footer>
 
+  <!-- ==========================================
+       JAVASCRIPT SCRIPTS
+       ========================================== -->
   <script>
-    // Mobile navigation
+    // Mobile navigation toggle
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     menuToggle.addEventListener('click', () => {
@@ -433,7 +716,7 @@
       });
     });
 
-    // Filter portfolio cards by category
+    // Portfolio project category filtering
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
     filterButtons.forEach(button => {
@@ -447,7 +730,40 @@
       });
     });
 
-    // Subtle scroll reveal, with a fallback for browsers without IntersectionObserver
+    // Testimonials / Shoutouts Carousel Script
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.getElementById('prevTestimonial');
+    const nextBtn = document.getElementById('nextTestimonial');
+    let currentIndex = 0;
+
+    function showTestimonial(index) {
+      testimonialCards.forEach((card, i) => {
+        card.classList.toggle('active', i === index);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+      currentIndex = index;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      let index = currentIndex - 1;
+      if (index < 0) index = testimonialCards.length - 1;
+      showTestimonial(index);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      let index = currentIndex + 1;
+      if (index >= testimonialCards.length) index = 0;
+      showTestimonial(index);
+    });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => showTestimonial(i));
+    });
+
+    // Scroll reveal observer animations
     const revealItems = document.querySelectorAll('.reveal');
     if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const observer = new IntersectionObserver(entries => {
@@ -462,6 +778,8 @@
     } else {
       revealItems.forEach(item => item.classList.add('visible'));
     }
+    
+    // Automatic dynamic footer year
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>

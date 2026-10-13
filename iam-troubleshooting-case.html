@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a1020">
+  <meta name="description" content="Portfolio case study by Jean Lasso-Sanchez detailing technical execution, problem-solving, and governance.">
+  <title>Resolving Complex IAM & Azure SSO Authentication Failures | Jean Lasso-Sanchez</title>
+  <style>
+    :root {
+      --bg: #080d19;
+      --surface: #10182a;
+      --surface-2: #151f34;
+      --text: #edf3ff;
+      --muted: #a1aec5;
+      --line: rgba(170, 192, 229, .16);
+      --blue: #69a7ff;
+      --cyan: #68e0dc;
+      --glow: rgba(69, 133, 255, .19);
+      --radius: 20px;
+      --max: 900px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      margin: 0; background:
+        radial-gradient(ellipse at 80% 0%, rgba(37, 88, 173, .18), transparent 36rem),
+        radial-gradient(ellipse at 0% 45%, rgba(28, 125, 132, .08), transparent 32rem),
+        var(--bg);
+      color: var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button { font: inherit; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .nav-wrap { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: rgba(8,13,25,.82); backdrop-filter: blur(16px); }
+    nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 750; letter-spacing: -.03em; white-space: nowrap; color: var(--text); }
+    .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 11px; color: #06101c; background: linear-gradient(135deg, var(--cyan), var(--blue)); font-weight: 900; }
+    .back-link { color: var(--muted); font-size: .9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .back-link:hover { color: var(--text); text-decoration: none; }
+    
+    /* Case Study Header */
+    .case-header { padding: 60px 0 40px; border-bottom: 1px solid var(--line); }
+    .section-kicker { color: var(--cyan); text-transform: uppercase; letter-spacing: .14em; font-size: .75rem; font-weight: 800; margin-bottom: 8px; }
+    h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1.1; letter-spacing: -.04em; margin: 0 0 16px; }
+    .case-intro { color: var(--muted); font-size: 1.1rem; max-width: 750px; margin: 0; }
+    
+    /* Case Content Layout */
+    .case-content { padding: 50px 0 90px; }
+    section.case-section { margin-bottom: 50px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; }
+    section.case-section h2 { font-size: 1.5rem; letter-spacing: -.02em; margin-top: 0; margin-bottom: 16px; color: var(--text); display: flex; align-items: center; gap: 10px; }
+    section.case-section h2 span { color: var(--cyan); font-size: 1rem; font-family: monospace; }
+    p, li { color: var(--muted); font-size: .98rem; }
+    strong { color: var(--text); }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 8px; }
+    
+    /* Media & Screenshot containers */
+    .screenshot-card {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    .screenshot-card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+    }
+    .screenshot-caption {
+      font-size: 0.85rem;
+      color: var(--cyan);
+      margin-top: 10px;
+      font-family: monospace;
+    }
+
+    /* Note box */
+    .security-note {
+      background: rgba(105, 167, 255, 0.05);
+      border-left: 3px solid var(--blue);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 16px;
+    }
+
+    /* Code block styling for evidence/commands */
+    pre { background: #060a13; border: 1px solid var(--line); border-radius: 12px; padding: 16px; overflow-x: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; color: #b8e9bd; }
+    
+    footer { border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font-size: .8rem; text-align: center; }
+    
+    @media (max-width: 620px) {
+      .container { width: min(var(--max), calc(100% - 24px)); }
+      section.case-section { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-wrap">
+    <nav class="container" aria-label="Case study navigation">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">JLS</span><span>Jean Lasso-Sanchez</span>
+      </a>
+      <a class="back-link" href="index.html#projects">← Back to Portfolio</a>
+    </nav>
+  </div>
+
+  <main class="container">
+    <!-- Header info -->
+    <header class="case-header">
+      <div class="section-kicker">Identity & Access Management (IAM) / Technical Troubleshooting</div>
+      <h1>Resolving Complex IAM & Azure SSO Authentication Failures</h1>
+      <p class="case-intro">Diagnosed and successfully resolved a recurring user login roadblock for a returning employee by identifying a hidden SAML claims conflict inside enterprise logs, restoring secure access with zero data loss.</p>
+    </header>
+
+    <div class="case-content">
+      
+      <!-- 1. Business Problem -->
+      <section class="case-section">
+        <h2><span>01</span> Business Problem</h2>
+        <p><strong>Context & Organization:</strong> Operating within our SaaS learning and documentation platform environment (uPerform), healthcare and enterprise clients rely heavily on seamless Single Sign-On (SSO) integrations via Microsoft Entra ID (Azure AD) to manage secure staff onboarding and access into our system.</p>
+        <p><strong>The Core Challenge:</strong> A support ticket was escalated via ServiceNow by one of our clients regarding a returning employee who previously left their organization. Despite having an active, unchanged Active Directory account, the user hit a wall during authentication, encountering Microsoft error code <code>AADSTS50011</code> (Redirect URI mismatch).</p>
+        <p><strong>Business Impact:</strong> Authentication friction stalls workforce productivity and frustrates stakeholders. Left unresolved, identity anomalies risk creating administrative overhead and ticket bloat.</p>
+      </section>
+
+      <!-- 2. Technical Approach -->
+      <section class="case-section">
+        <h2><span>02</span> Technical Approach & Methodology</h2>
+        <p><strong>Tools & Frameworks:</strong> ServiceNow, Microsoft Entra ID (Azure AD), Sumo Logic, Custom Log Analysis, CSV Data Bulk-Handling, ITIL Incident Management Guidelines.</p>
+        
+        <!-- Architecture Flow Diagram -->
+        <div style="margin: 30px 0 20px 0;">
+          <svg viewBox="0 0 850 480" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="background: #10182a; border-radius: 14px; border: 1px solid rgba(170, 192, 229, 0.16); font-family: Inter, system-ui, sans-serif;">
+            <defs>
+              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+              <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#68e0dc" />
+                <stop offset="100%" stop-color="#69a7ff" />
+              </linearGradient>
+            </defs>
+            <g opacity="0.05">
+              <path d="M0 60 H850 M0 120 H850 M0 180 H850 M0 240 H850 M0 300 H850 M0 360 H850 M0 420 H850" stroke="#edf3ff" stroke-width="1" />
+              <path d="M100 0 V480 M200 0 V480 M300 0 V480 M400 0 V480 M500 0 V480 M600 0 V480 M700 0 V480 M800 0 V480" stroke="#edf3ff" stroke-width="1" />
+            </g>
+            <text x="425" y="35" fill="#edf3ff" font-size="15" font-weight="700" text-anchor="middle" letter-spacing="0.05em">IAM SSO TROUBLESHOOTING &amp; RESOLUTION WORKFLOW</text>
+            
+            <g transform="translate(40, 70)">
+              <rect width="160" height="90" rx="12" fill="#151f34" stroke="#68e0dc" stroke-width="1.5" filter="url(#glow)" />
+              <text x="80" y="32" fill="#68e0dc" font-size="11" font-weight="800" text-anchor="middle">STEP 01</text>
+              <text x="80" y="52" fill="#edf3ff" font-size="13" font-weight="700" text-anchor="middle">Azure SSO Login</text>
+              <text x="80" y="70" fill="#a1aec5" font-size="11" text-anchor="middle">Redirect / URI Error</text>
+            </g>
+            <path d="M200 115 L245 115" stroke="url(#lineGrad)" stroke-width="2.5" fill="none" />
+            <polygon points="243,111 251,115 243,119" fill="#69a7ff" />
+
+            <g transform="translate(250, 70)">
+              <rect width="160" height="90" rx="12" fill="#151f34" stroke="rgba(170, 192, 229, 0.3)" stroke-width="1.5" />
+              <text x="80" y="32" fill="#68e0dc" font-size="11" font-weight="800" text-anchor="middle">STEP 02</text>
+              <text x="80" y="52" fill="#edf3ff" font-size="13" font-weight="700" text-anchor="middle">ServiceNow Ticket</text>
+              <text x="80" y="70" fill="#a1aec5" font-size="11" text-anchor="middle">Incident Escalation</text>
+            </g>
+            <path d="M410 115 L455 115" stroke="url(#lineGrad)" stroke-width="2.5" fill="none" />
+            <polygon points="453,111 461,115 453,119" fill="#69a7ff" />
+
+            <g transform="translate(460, 70)">
+              <rect width="160" height="90" rx="12" fill="#151f34" stroke="#69a7ff" stroke-width="1.5" filter="url(#glow)" />
+              <text x="80" y="32" fill="#68e0dc" font-size="11" font-weight="800" text-anchor="middle">STEP 03</text>
+              <text x="80" y="52" fill="#edf3ff" font-size="13" font-weight="700" text-anchor="middle">Sumo Logic</text>
+              <text x="80" y="70" fill="#a1aec5" font-size="11" text-anchor="middle">Claims Conflict Found</text>
+            </g>
+            <path d="M540 160 L540 215 L210 215 L210 250" stroke="url(#lineGrad)" stroke-width="2.5" fill="none" />
+            <polygon points="206,248 210,256 214,248" fill="#69a7ff" />
+
+            <g transform="translate(130, 260)">
+              <rect width="160" height="90" rx="12" fill="#151f34" stroke="rgba(170, 192, 229, 0.3)" stroke-width="1.5" />
+              <text x="80" y="32" fill="#68e0dc" font-size="11" font-weight="800" text-anchor="middle">STEP 04</text>
+              <text x="80" y="52" fill="#edf3ff" font-size="13" font-weight="700" text-anchor="middle">Database Audit</text>
+              <text x="80" y="70" fill="#a1aec5" font-size="11" text-anchor="middle">Isolated Inactive Account</text>
+            </g>
+            <path d="M290 305 L345 305" stroke="url(#lineGrad)" stroke-width="2.5" fill="none" />
+            <polygon points="343,301 351,305 343,309" fill="#69a7ff" />
+
+            <g transform="translate(350, 260)">
+              <rect width="160" height="90" rx="12" fill="#151f34" stroke="#68e0dc" stroke-width="1.5" filter="url(#glow)" />
+              <text x="80" y="32" fill="#68e0dc" font-size="11" font-weight="800" text-anchor="middle">STEP 05</text>
+              <text x="80" y="52" fill="#edf3ff" font-size="13" font-weight="700" text-anchor="middle">CSV Data Import</text>
+              <text x="80" y="70" fill="#a1aec5" font-size="11" text-anchor="middle">Re-mapped Identifiers</text>
+            </g>
+            <path d="M510 305 L565 305" stroke="url(#lineGrad)" stroke-width="2.5" fill="none" />
+            <polygon points="563,301 571,305 563,309" fill="#69a7ff" />
+
+            <g transform="translate(570, 260)">
+              <rect width="160" height="90" rx="12" fill="#151f34" stroke="#68e0dc" stroke-width="1.5" filter="url(#glow)" />
+              <text x="80" y="32" fill="#68e0dc" font-size="11" font-weight="800" text-anchor="middle">STEP 06</text>
+              <text x="80" y="52" fill="#edf3ff" font-size="13" font-weight="700" text-anchor="middle">Access Restored</text>
+              <text x="80" y="70" fill="#a1aec5" font-size="11" text-anchor="middle">Seamless User Session</text>
+            </g>
+            <text x="425" y="415" fill="#a1aec5" font-size="11" text-anchor="middle">Secure diagnostic flow demonstrating structured incident escalation, log telemetry, and identity lifecycle resolution.</text>
+          </svg>
+        </div>
+
+        <p><strong>Step-by-Step Implementation Workflow:</strong></p>
+        <ul>
+          <li><strong>Phase 1 (Triage & Scoping):</strong> Acknowledged the incoming ServiceNow case. Conducted initial stakeholder outreach to isolate variables: verified whether the disruption impacted multiple users or a single profile, gathered precise timestamps for the latest login attempt to anchor log searches, and cross-referenced expected AD attributes (username and corporate email).</li>
+          <li><strong>Phase 2 (Deep-Dive Log Inspection):</strong> Performed a preliminary audit of the user profile within the system console. Seeing no obvious flags, I transitioned to Sumo Logic, executing a targeted custom query filtering against the client instance domain (<code>xxxx.xxxxx.com</code>) to review real-time authentication traffic.</li>
+          <li><strong>Phase 3 (Root Cause Identification & Remediation):</strong> Uncovered a SAML claims conflict indicating that the inbound authentication string matched a username already recognized as "in use." After tracking down an old, deactivated account holding onto the conflicting identifier, I performed a controlled data import via CSV—validating table schema and referential constraints to safely isolate the historical record and provision the proper credentials to the active user profile.</li>
+        </ul>
+      </section>
+
+      <!-- 3. Evidence & Deliverables -->
+      <section class="case-section">
+        <h2><span>03</span> Evidence & Key Deliverables</h2>
+        
+        <p><strong>Artifact 1: ServiceNow Intake Ticket</strong></p>
+        <p>The incident originated from a user-submitted support request detailing login blockages and capturing the initial client perspective.</p>
+
+        <!-- Screenshot Placeholder 1 (ServiceNow) -->
+        <div class="screenshot-card">
+          <img src="images/sn-support-ticket.png" alt="Screenshot of ServiceNow support ticket submitted by the client regarding SSO login failure">
+          <div class="screenshot-caption">Initial ServiceNow incident record detailing the user authentication roadblock.</div>
+        </div>
+
+        <p style="margin-top: 24px;"><strong>Artifact 2: Initial Error Diagnostics & Redirect Validation</strong></p>
+        <p>The user additionally reported error code <code>AADSTS50011</code>, typically triggered when callback URLs sent during authentication requests drift from the registered Entra ID application settings.</p>
+        
+        <!-- Screenshot Placeholder 2 (URI Mismatch) -->
+        <div class="screenshot-card">
+          <img src="images/uri-mismatch-error.png" alt="Screenshot of AADSTS50011 error dialog indicating redirect URI mismatch during Azure SSO attempt">
+          <div class="screenshot-caption">Entra ID authentication refusal capturing the initial callback mismatch signal.</div>
+        </div>
+
+        <p style="margin-top: 24px;"><strong>Artifact 3: Sumo Logic Log Analysis & Claims Conflict Detection</strong></p>
+        <p>By running a search in Sumo Logic, I found the exact roadblock: the login failed because the incoming identity data clashed with an old record left in the system.</p>
+
+        <!-- Code / Snippet Container -->
+        <pre><code># Sumo Logic Log Output Extract - Client Instance: xxxx.xxxxx.com
+2026-10-12 14:22:10 [ERROR] [AuthService] - SAML Assertion validation failed for user principal: "xxxxx".
+2026-10-12 14:22:10 [WARN] [IDP-Bridge] - Authentication token rejected: Username claim value already in use by inactive entity ID #4092.
+2026-10-12 14:22:10 [INFO] [SessionMgr] - User login aborted. Redirecting to error handler endpoint.</code></pre>
+
+        <!-- Screenshot Placeholder 3 (Sumo Logic) -->
+        <div class="screenshot-card" style="margin-top: 20px;">
+          <img src="images/sumo-query.png" alt="Screenshot of Sumo Logic custom query highlighting SAML claims conflict log line">
+          <div class="screenshot-caption">Sumo Logic dashboard query used in isolating the username collision.</div>
+        </div>
+
+        <!-- Security Note -->
+        <div class="security-note">
+          <strong>Note on Artifact Retention:</strong> An exact graphical capture of the historical logline is not included here. In alignment with enterprise security best practices and data protection policies, system logs are automatically purged after a set retention period to minimize sensitive data exposure.
+        </div>
+      </section>
+
+      <!-- 4. Outcome & Lessons Learned -->
+      <section class="case-section">
+        <h2><span>04</span> Outcome & Lessons Learned</h2>
+        <p><strong>Results Achieved:</strong></p>
+        <ul>
+          <li>Successfully restored seamless Azure SSO access for the returning employee within the established SLA window (under 2 hours from escalation) following a structured CSV identifier re-mapping.</li>
+          <li>Eliminated silent identity synchronization bottlenecks caused by dormant or legacy account states lingering in database tables with zero data loss.</li>
+        </ul>
+        <p style="margin-top: 16px;"><strong>Key Takeaways & Lessons Learned:</strong></p>
+        <ul>
+          <li><strong>Holistic Identity Auditing:</strong> Surface-level profile checks can easily miss underlying database uniqueness constraints caused by historical, deactivated records. Robust troubleshooting requires deep-diving into identity lifecycles.</li>
+          <li><strong>Proactive Stakeholder Management:</strong> Clear communication during ticket intake—such as verifying precise timestamps and scope—drastically reduces diagnostic turnaround time.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span id="year"></span> Jean Lasso-Sanchez · Built to succeed.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
